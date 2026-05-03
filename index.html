@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazaaro — Online Bazaar Marketplace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- ========== Navigation ========== -->
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main">
+      <div class="nav-row flex flex-between flex-center-y">
+        <a href="#hero" class="logo-brand flex flex-center-y gap-sm" data-section="hero">
+          <span class="logo-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9l1.5 12h15L21 9H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+              <path d="M8 9V7a4 4 0 118 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </span>
+          <span class="logo-text">Bazaaro</span>
+        </a>
+
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <ul class="nav-links flex flex-center-y">
+          <li><a href="#hero" class="nav-link nav-link--active" data-section="hero">Home</a></li>
+          <li><a href="#browse" class="nav-link" data-section="browse">Browse</a></li>
+          <li><a href="#cart" class="nav-link" data-section="cart">Cart</a></li>
+          <li><a href="#orders" class="nav-link" data-section="orders">Orders</a></li>
+          <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions flex flex-center-y gap-action">
+          <button type="button" class="icon-btn" id="navSearchBtn" aria-label="Search products">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+          </button>
+          <a href="#cart" class="icon-btn icon-btn--cart" data-section="cart" aria-label="Cart">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/>
+            </svg>
+            <span class="cart-badge hidden" id="cartBadge">0</span>
+          </a>
+          <span class="avatar-placeholder" title="Profile" role="img" aria-label="User profile placeholder"></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ========== 1. Hero / Dashboard ========== -->
+    <section id="hero" class="hero section section--hero">
+      <div class="container">
+        <div class="hero-inner flex hero-flex">
+          <div class="hero-copy">
+            <h1 class="hero-title">
+              Discover unique <span class="text-accent">bazaar</span> finds
+            </h1>
+            <p class="hero-subtitle text-muted">
+              Browse fun, useful, and random items from our online bazaar.
+            </p>
+            <div class="hero-actions flex flex-wrap gap-sm">
+              <a href="#browse" class="btn btn-primary" data-section="browse">Browse Items</a>
+              <a href="#cart" class="btn btn-ghost-dark" data-section="cart">View Cart</a>
+            </div>
+          </div>
+          <div class="hero-visual-wrap">
+            <div class="hero-visual card-soft">
+              <div class="hero-placeholder placeholder-img" aria-hidden="true">
+                <span class="hero-placeholder-label">Product showcase</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 2. Browse / Products ========== -->
+    <section id="browse" class="browse section">
+      <div class="container">
+        <header class="section-header section-header--row flex flex-between flex-wrap gap-md flex-center-y">
+          <div>
+            <h2 class="section-title">Shop the bazaar</h2>
+            <p class="section-desc text-muted">Curious gadgets, gifts, and everyday surprises.</p>
+          </div>
+          <div class="browse-toolbar flex flex-wrap gap-sm flex-grow-toolbar">
+            <label class="sr-only" for="productSearch">Search products</label>
+            <input type="search" id="productSearch" class="input input--search" placeholder="Search items..." autocomplete="off" />
+          </div>
+        </header>
+
+        <div class="browse-layout grid browse-grid">
+          <aside class="categories card-soft">
+            <h3 class="categories-title">Categories</h3>
+            <ul class="category-list">
+              <li><button type="button" class="category-btn is-active" data-filter="all">All</button></li>
+              <li><button type="button" class="category-btn" data-filter="toys">Toys</button></li>
+              <li><button type="button" class="category-btn" data-filter="accessories">Accessories</button></li>
+              <li><button type="button" class="category-btn" data-filter="home">Home Items</button></li>
+              <li><button type="button" class="category-btn" data-filter="collectibles">Collectibles</button></li>
+              <li><button type="button" class="category-btn" data-filter="gifts">Gifts</button></li>
+            </ul>
+          </aside>
+
+          <div class="menu-grid grid menu-cards" id="productGrid">
+            <article
+              class="product-card card-soft"
+              data-id="p1"
+              data-category="toys"
+              data-name="Giant Dice"
+              data-price="14.99"
+              data-desc="Oversized colorful dice — great for board-game nights, classroom fun, or quirky shelf decor. Lightweight and easy to spot across the room."
+            >
+              <div class="product-card-media placeholder-img placeholder-img--card" aria-hidden="true"></div>
+              <div class="product-card-body">
+                <h3 class="product-name">Giant Dice</h3>
+                <p class="product-desc">Playful oversized dice for games and display.</p>
+                <p class="product-price">$14.99</p>
+                <div class="product-actions flex flex-wrap gap-sm">
+                  <button type="button" class="btn btn-ghost-dark btn-sm view-details">View Details</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flex add-to-cart" data-id="p1" data-name="Giant Dice" data-price="14.99">Add to Cart</button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card card-soft"
+              data-id="p2"
+              data-category="accessories"
+              data-name="Keychain Set"
+              data-price="8.49"
+              data-desc="A mixed set of durable metal and enamel keychains. Clip them to bags, keys, or lanyards — each set is a little different for that bazaar surprise."
+            >
+              <div class="product-card-media placeholder-img placeholder-img--card" aria-hidden="true"></div>
+              <div class="product-card-body">
+                <h3 class="product-name">Keychain Set</h3>
+                <p class="product-desc">Assorted styles — perfect for organizing keys in style.</p>
+                <p class="product-price">$8.49</p>
+                <div class="product-actions flex flex-wrap gap-sm">
+                  <button type="button" class="btn btn-ghost-dark btn-sm view-details">View Details</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flex add-to-cart" data-id="p2" data-name="Keychain Set" data-price="8.49">Add to Cart</button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card card-soft"
+              data-id="p3"
+              data-category="home"
+              data-name="Mini Lamp"
+              data-price="21.99"
+              data-desc="Compact LED desk lamp with adjustable neck. Warm light for reading, crafting, or late-night browsing — fits small desks and nightstands."
+            >
+              <div class="product-card-media placeholder-img placeholder-img--card" aria-hidden="true"></div>
+              <div class="product-card-body">
+                <h3 class="product-name">Mini Lamp</h3>
+                <p class="product-desc">Small footprint, cozy glow for any corner.</p>
+                <p class="product-price">$21.99</p>
+                <div class="product-actions flex flex-wrap gap-sm">
+                  <button type="button" class="btn btn-ghost-dark btn-sm view-details">View Details</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flex add-to-cart" data-id="p3" data-name="Mini Lamp" data-price="21.99">Add to Cart</button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card card-soft"
+              data-id="p4"
+              data-category="gifts"
+              data-name="Tote Bag"
+              data-price="16.50"
+              data-desc="Sturdy canvas tote with reinforced handles. Great for market runs, library trips, or gifting — simple design that goes with everything."
+            >
+              <div class="product-card-media placeholder-img placeholder-img--card" aria-hidden="true"></div>
+              <div class="product-card-body">
+                <h3 class="product-name">Tote Bag</h3>
+                <p class="product-desc">Canvas carryall for daily errands and gifts.</p>
+                <p class="product-price">$16.50</p>
+                <div class="product-actions flex flex-wrap gap-sm">
+                  <button type="button" class="btn btn-ghost-dark btn-sm view-details">View Details</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flex add-to-cart" data-id="p4" data-name="Tote Bag" data-price="16.50">Add to Cart</button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card card-soft"
+              data-id="p5"
+              data-category="accessories"
+              data-name="Phone Stand"
+              data-price="9.99"
+              data-desc="Foldable phone stand with non-slip base. Prop your device for video calls, recipes, or streaming — folds flat for travel."
+            >
+              <div class="product-card-media placeholder-img placeholder-img--card" aria-hidden="true"></div>
+              <div class="product-card-body">
+                <h3 class="product-name">Phone Stand</h3>
+                <p class="product-desc">Hands-free viewing at home or on the go.</p>
+                <p class="product-price">$9.99</p>
+                <div class="product-actions flex flex-wrap gap-sm">
+                  <button type="button" class="btn btn-ghost-dark btn-sm view-details">View Details</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flex add-to-cart" data-id="p5" data-name="Phone Stand" data-price="9.99">Add to Cart</button>
+                </div>
+              </div>
+            </article>
+
+            <article
+              class="product-card card-soft"
+              data-id="p6"
+              data-category="collectibles"
+              data-name="Mystery Box"
+              data-price="19.99"
+              data-desc="A sealed surprise box of bazaar odds and ends — small gadgets, stickers, or trinkets. Part of the fun is not knowing exactly what you will get!"
+            >
+              <div class="product-card-media placeholder-img placeholder-img--card" aria-hidden="true"></div>
+              <div class="product-card-body">
+                <h3 class="product-name">Mystery Box</h3>
+                <p class="product-desc">Surprise assortment — perfect for curious shoppers.</p>
+                <p class="product-price">$19.99</p>
+                <div class="product-actions flex flex-wrap gap-sm">
+                  <button type="button" class="btn btn-ghost-dark btn-sm view-details">View Details</button>
+                  <button type="button" class="btn btn-primary btn-sm btn-flex add-to-cart" data-id="p6" data-name="Mystery Box" data-price="19.99">Add to Cart</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 3. Product details modal ========== -->
+    <div class="modal hidden" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalProductTitle" aria-hidden="true">
+      <div class="modal-backdrop" id="modalBackdrop" tabindex="-1"></div>
+      <div class="modal-panel card-soft">
+        <button type="button" class="modal-close" id="modalClose" aria-label="Close details">&times;</button>
+        <div class="modal-grid">
+          <div class="modal-image placeholder-img placeholder-img--modal" id="modalImage" aria-hidden="true"></div>
+          <div class="modal-content">
+            <h2 class="modal-title" id="modalProductTitle">Product</h2>
+            <p class="modal-desc text-muted" id="modalProductDesc"></p>
+            <p class="modal-price text-accent" id="modalProductPrice"></p>
+            <div class="modal-qty-row flex flex-center-y gap-sm">
+              <span class="text-muted modal-qty-label">Quantity</span>
+              <div class="qty-row modal-qty-controls">
+                <button type="button" class="qty-btn" id="modalQtyDec" aria-label="Decrease quantity">−</button>
+                <span class="qty-val" id="modalQtyVal">1</span>
+                <button type="button" class="qty-btn" id="modalQtyInc" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-block" id="modalAddToCart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== 4. Cart ========== -->
+    <section id="cart" class="cart section section-alt">
+      <div class="container">
+        <header class="section-header">
+          <h2 class="section-title">Your Cart</h2>
+          <p class="section-desc text-muted">Review quantities before checkout.</p>
+        </header>
+
+        <div class="cart-layout grid cart-grid">
+          <div class="cart-panel card-soft">
+            <h3 class="panel-title">Items</h3>
+            <ul class="cart-list" id="cartList">
+              <li class="cart-empty text-muted" id="cartEmpty">Your cart is empty. Browse the bazaar to add items.</li>
+            </ul>
+            <a href="#browse" class="continue-browse link-back" data-section="browse">← Continue shopping</a>
+          </div>
+
+          <aside class="cart-summary card-soft">
+            <h3 class="panel-title">Order summary</h3>
+            <dl class="summary-rows">
+              <div class="summary-row flex flex-between">
+                <dt>Subtotal</dt>
+                <dd id="subtotalDisplay">$0.00</dd>
+              </div>
+              <div class="summary-row flex flex-between">
+                <dt>Shipping Fee</dt>
+                <dd id="shippingDisplay">$0.00</dd>
+              </div>
+              <div class="summary-row summary-row--total flex flex-between">
+                <dt>Total</dt>
+                <dd id="totalDisplay">$0.00</dd>
+              </div>
+            </dl>
+            <button type="button" class="btn btn-primary btn-block btn-checkout-lg" id="proceedCheckout">Proceed to Checkout</button>
+            <p class="secure-checkout flex flex-center-y gap-xs">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+              </svg>
+              Secure checkout
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 5. Orders (placeholder hub) ========== -->
+    <section id="orders" class="orders section">
+      <div class="container container--checkout">
+        <div class="orders-card card-soft">
+          <h2 class="section-title">Your orders</h2>
+          <p class="text-muted orders-text">
+            After you complete checkout, you will see your order number and details on the confirmation screen. Check your email for shipping updates.
+          </p>
+          <div class="flex flex-wrap gap-sm">
+            <a href="#browse" class="btn btn-primary" data-section="browse">Browse items</a>
+            <a href="#cart" class="btn btn-ghost-dark" data-section="cart">View cart</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 6. Checkout ========== -->
+    <section id="checkout" class="checkout section section-alt">
+      <div class="container container--checkout">
+        <header class="section-header">
+          <h2 class="section-title">Checkout</h2>
+          <p class="section-desc text-muted">Shipping details and how you will pay.</p>
+        </header>
+
+        <form class="checkout-form card-soft" id="checkoutForm" novalidate>
+          <fieldset class="form-fieldset">
+            <legend class="fieldset-legend">Customer information</legend>
+            <div class="form-group">
+              <label for="customerName">Name</label>
+              <input type="text" id="customerName" name="name" class="input" placeholder="Full name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="customerAddress">Address</label>
+              <input type="text" id="customerAddress" name="address" class="input" placeholder="Street, city, postal code" required autocomplete="street-address" />
+            </div>
+            <div class="form-group">
+              <label for="customerPhone">Phone number</label>
+              <input type="tel" id="customerPhone" name="phone" class="input" placeholder="(555) 123-4567" required autocomplete="tel" />
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset payment-fieldset">
+            <legend class="fieldset-legend">Payment method</legend>
+            <label class="radio-row">
+              <input type="radio" name="payment" value="cash" checked />
+              <span>Cash on Delivery</span>
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="payment" value="wallet" />
+              <span>E-Wallet</span>
+            </label>
+          </fieldset>
+
+          <div class="checkout-footer flex flex-between flex-wrap gap-md flex-center-y">
+            <div class="checkout-total-pill">
+              <span class="text-muted checkout-total-label">Total</span>
+              <strong class="checkout-total-value text-accent" id="checkoutTotalDisplay">$0.00</strong>
+            </div>
+            <button type="submit" class="btn btn-primary btn-place-order">Place Order</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== 7. Order confirmation ========== -->
+    <section id="confirmation" class="confirmation section hidden" aria-live="polite">
+      <div class="container container--confirm">
+        <div class="confirmation-card card-soft text-center">
+          <div class="confirmation-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h2 class="confirmation-title">Order Confirmed!</h2>
+          <p class="confirmation-msg text-muted" id="confirmationThankYou">Thank you for shopping at Bazaaro.</p>
+
+          <div class="order-details-box text-left">
+            <h3 class="order-details-heading">Order summary</h3>
+            <dl class="order-details-list">
+              <div class="order-detail-row flex flex-between">
+                <dt>Order number</dt>
+                <dd id="orderNumberDisplay">—</dd>
+              </div>
+              <div class="order-detail-row flex flex-between order-detail-row--emphasis">
+                <dt>Total</dt>
+                <dd class="text-accent" id="confirmTotal">$0.00</dd>
+              </div>
+            </dl>
+            <h3 class="order-details-heading order-details-heading--sub">Ship to</h3>
+            <div class="confirm-customer text-muted" id="confirmCustomerBlock">
+              <p id="confirmCustomerName"></p>
+              <p id="confirmCustomerAddress"></p>
+              <p id="confirmCustomerPhone"></p>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="backHome">Back to Home</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Footer / Contact ========== -->
+    <footer id="contact" class="footer section">
+      <div class="container footer-inner flex flex-between flex-wrap gap-md flex-center-y">
+        <div>
+          <strong class="logo-brand logo-brand--footer flex flex-center-y gap-sm">
+            <span class="logo-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 9l1.5 12h15L21 9H3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                <path d="M8 9V7a4 4 0 118 0v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/>
+              </svg>
+            </span>
+            <span class="logo-text">Bazaaro</span>
+          </strong>
+          <p class="text-muted footer-tag">Your online bazaar for unexpected finds.</p>
+        </div>
+        <div class="footer-contact">
+          <p><span class="text-muted">Email:</span> hello@bazaaro.example</p>
+          <p><span class="text-muted">Phone:</span> (555) 019-2834</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
