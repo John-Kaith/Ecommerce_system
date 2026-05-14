@@ -105,6 +105,39 @@
     return parsePriceValue(card.getAttribute("data-price"));
   }
 
+  var catalogPrices = {
+    p1: 150,
+    p2: 250
+  };
+
+  function getCatalogPrice(productId) {
+    var card = document.querySelector('.product-card[data-id="' + productId + '"]');
+    if (card) {
+      return getCardPrice(card);
+    }
+    return catalogPrices[productId] || 0;
+  }
+
+  function syncCartPrices() {
+    getCartKeys().forEach(function (key) {
+      var item = cart[key];
+      var price = getCatalogPrice(item.id);
+      if (price > 0) {
+        item.price = price;
+      }
+      var card = document.querySelector('.product-card[data-id="' + item.id + '"]');
+      if (!card) return;
+      var name = card.getAttribute("data-name");
+      if (name) {
+        item.name = name;
+      }
+      var image = card.getAttribute("data-image");
+      if (image) {
+        item.image = image;
+      }
+    });
+  }
+
   function getSubtotal() {
     return Object.values(cart).reduce(function (sum, item) {
       return sum + item.price * item.qty;
@@ -359,8 +392,14 @@
     var image = card ? card.getAttribute("data-image") : "";
     if (!cart[modalProductId]) {
       cart[modalProductId] = { id: modalProductId, name: name, price: price, qty: 0, image: image };
-    } else if (image) {
-      cart[modalProductId].image = image;
+    } else {
+      cart[modalProductId].price = price;
+      if (name) {
+        cart[modalProductId].name = name;
+      }
+      if (image) {
+        cart[modalProductId].image = image;
+      }
     }
     cart[modalProductId].qty += modalQty;
     renderCart();
@@ -391,8 +430,14 @@
     var image = card ? card.getAttribute("data-image") : "";
     if (!cart[id]) {
       cart[id] = { id: id, name: name, price: price, qty: 0, image: image };
-    } else if (image) {
-      cart[id].image = image;
+    } else {
+      cart[id].price = price;
+      if (name) {
+        cart[id].name = name;
+      }
+      if (image) {
+        cart[id].image = image;
+      }
     }
     cart[id].qty += 1;
     renderCart();
@@ -411,6 +456,7 @@
   function renderCheckoutOrder() {
     if (!checkoutItemsList) return;
 
+    syncCartPrices();
     var keys = getCartKeys();
     var subtotal = getSubtotal();
     var shipping = keys.length > 0 ? SHIPPING_FEE : 0;
@@ -467,6 +513,7 @@
   }
 
   function renderCart() {
+    syncCartPrices();
     var keys = getCartKeys();
     var count = getCartCount();
 
@@ -664,6 +711,7 @@
   });
 
   loadCart();
+  syncCartPrices();
   initEmailJs();
 
   if (checkoutForm && getCartKeys().length === 0) {
