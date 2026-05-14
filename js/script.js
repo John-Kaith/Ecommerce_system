@@ -238,6 +238,14 @@
       navToggle.setAttribute("aria-expanded", "false");
       navLinks.classList.remove("is-open");
     }
+    document.body.classList.remove("nav-open");
+  }
+
+  function setMobileNavOpen(isOpen) {
+    if (!navToggle || !navLinks) return;
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    navLinks.classList.toggle("is-open", isOpen);
+    document.body.classList.toggle("nav-open", isOpen);
   }
 
   function setActiveNav(sectionId) {
@@ -630,10 +638,15 @@
   if (navToggle && navLinks) {
     navToggle.addEventListener("click", function () {
       var open = navToggle.getAttribute("aria-expanded") === "true";
-      navToggle.setAttribute("aria-expanded", open ? "false" : "true");
-      navLinks.classList.toggle("is-open", !open);
+      setMobileNavOpen(!open);
     });
   }
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 900) {
+      closeMobileNav();
+    }
+  });
 
   loadCart();
   initEmailJs();
