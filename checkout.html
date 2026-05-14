@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — EcoWeave</title>
+  <link rel="icon" href="assets/images/logo2.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="assets/images/logo2.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Main">
+      <div class="nav-row flex flex-between flex-center-y">
+        <a href="index.html#hero" class="logo-brand flex flex-center-y gap-sm">
+          <img class="logo-icon" src="assets/images/logo2.png" alt="" width="40" height="40" />
+          <span class="logo-text">EcoWeave</span>
+        </a>
+
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+
+        <ul class="nav-links flex flex-center-y">
+          <li><a href="index.html#hero" class="nav-link">Home</a></li>
+          <li><a href="index.html#browse" class="nav-link">Shop</a></li>
+          <li><a href="index.html#cart" class="nav-link">Cart</a></li>
+          <li><a href="index.html#orders" class="nav-link">Orders</a></li>
+          <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions flex flex-center-y gap-action">
+          <a href="index.html#cart" class="icon-btn icon-btn--cart" aria-label="Cart">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/>
+            </svg>
+            <span class="cart-badge hidden" id="cartBadge">0</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section id="checkout" class="checkout section section-alt">
+      <div class="container container--checkout">
+        <header class="section-header">
+          <h1 class="section-title">Checkout</h1>
+          <p class="section-desc text-muted">Delivery details and payment on arrival.</p>
+        </header>
+
+        <div class="checkout-layout grid">
+          <aside class="checkout-order card-soft" aria-labelledby="checkoutOrderTitle">
+            <h2 class="panel-title" id="checkoutOrderTitle">Order details</h2>
+            <ul class="checkout-items" id="checkoutItemsList">
+              <li class="checkout-items-empty text-muted" id="checkoutItemsEmpty">Your cart is empty.</li>
+            </ul>
+            <dl class="summary-rows checkout-summary">
+              <div class="summary-row flex flex-between">
+                <dt>Subtotal</dt>
+                <dd id="checkoutSubtotalDisplay">$0.00</dd>
+              </div>
+              <div class="summary-row flex flex-between">
+                <dt>Shipping fee</dt>
+                <dd id="checkoutShippingDisplay">$0.00</dd>
+              </div>
+              <div class="summary-row summary-row--total flex flex-between">
+                <dt>Total</dt>
+                <dd id="checkoutSummaryTotalDisplay">$0.00</dd>
+              </div>
+            </dl>
+            <a href="index.html#cart" class="checkout-edit-cart link-back">← Edit cart</a>
+          </aside>
+
+          <form class="checkout-form card-soft" id="checkoutForm" novalidate>
+          <fieldset class="form-fieldset">
+            <legend class="fieldset-legend">Customer information</legend>
+            <div class="form-group">
+              <label for="customerName">Name</label>
+              <input type="text" id="customerName" name="name" class="input" placeholder="Full name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="customerEmail">Email <span class="label-optional">(optional)</span></label>
+              <input type="email" id="customerEmail" name="email" class="input" placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="customerPhone">Phone number</label>
+              <input type="tel" id="customerPhone" name="phone" class="input" placeholder="09XX XXX XXXX" required autocomplete="tel" />
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset">
+            <legend class="fieldset-legend">Delivery location</legend>
+            <p class="form-hint text-muted">Choose from region down to barangay, then add your street or building details.</p>
+            <div class="location-grid">
+              <div class="form-group">
+                <label for="deliveryRegion">Region</label>
+                <select id="deliveryRegion" name="region" class="input input--select" required>
+                  <option value="">Loading regions...</option>
+                </select>
+              </div>
+              <div class="form-group" id="deliveryProvinceGroup">
+                <label for="deliveryProvince">Province</label>
+                <select id="deliveryProvince" name="province" class="input input--select" required disabled>
+                  <option value="">Select province</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="deliveryCity">City / municipality</label>
+                <select id="deliveryCity" name="city" class="input input--select" required disabled>
+                  <option value="">Select city or municipality</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="deliveryBarangay">Barangay</label>
+                <select id="deliveryBarangay" name="barangay" class="input input--select" required disabled>
+                  <option value="">Select barangay</option>
+                </select>
+              </div>
+              <div class="form-group form-group--full">
+                <label for="customerStreet">Street, house no., landmark</label>
+                <input type="text" id="customerStreet" name="street" class="input" placeholder="House no., street, subdivision, landmark" required autocomplete="street-address" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset payment-fieldset">
+            <legend class="fieldset-legend">Payment method</legend>
+            <div class="payment-cod card-soft">
+              <div class="payment-cod-icon" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>
+                </svg>
+              </div>
+              <div>
+                <p class="payment-cod-title">Cash on delivery</p>
+                <p class="payment-cod-desc text-muted">Pay in cash when your order is delivered. Online payment is not available.</p>
+              </div>
+            </div>
+            <input type="hidden" name="payment" value="cash" />
+          </fieldset>
+
+          <div class="checkout-footer flex flex-between flex-wrap gap-md flex-center-y">
+            <div class="checkout-total-pill">
+              <span class="text-muted checkout-total-label">Total due on delivery</span>
+              <strong class="checkout-total-value text-accent" id="checkoutTotalDisplay">$0.00</strong>
+            </div>
+            <button type="submit" class="btn btn-primary btn-place-order" id="placeOrderBtn">Place order</button>
+            <p class="form-hint text-muted checkout-status hidden" id="checkoutStatus" role="status" aria-live="polite"></p>
+          </div>
+          </form>
+        </div>
+
+        <p class="checkout-back text-muted">
+          <a href="index.html#cart" class="link-back">← Back to cart</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="confirmation" class="confirmation section hidden" aria-live="polite">
+      <div class="container container--confirm">
+        <div class="confirmation-card card-soft text-center">
+          <div class="confirmation-icon" aria-hidden="true">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </div>
+          <h2 class="confirmation-title">Order confirmed</h2>
+          <p class="confirmation-msg text-muted" id="confirmationThankYou">Thank you for shopping at EcoWeave.</p>
+
+          <div class="order-details-box text-left">
+            <h3 class="order-details-heading">Order summary</h3>
+            <dl class="order-details-list">
+              <div class="order-detail-row flex flex-between">
+                <dt>Order number</dt>
+                <dd id="orderNumberDisplay">—</dd>
+              </div>
+              <div class="order-detail-row flex flex-between order-detail-row--emphasis">
+                <dt>Total (COD)</dt>
+                <dd class="text-accent" id="confirmTotal">$0.00</dd>
+              </div>
+            </dl>
+            <h3 class="order-details-heading order-details-heading--sub">Items</h3>
+            <ul class="confirm-order-items text-muted" id="confirmOrderItems"></ul>
+            <h3 class="order-details-heading order-details-heading--sub">Ship to</h3>
+            <div class="confirm-customer text-muted" id="confirmCustomerBlock">
+              <p id="confirmCustomerName"></p>
+              <p id="confirmCustomerEmail" class="hidden"></p>
+              <p id="confirmCustomerAddress"></p>
+              <p id="confirmCustomerPhone"></p>
+            </div>
+            <p class="order-email-status text-muted hidden" id="orderEmailStatus" role="status"></p>
+          </div>
+
+          <a href="index.html#hero" class="btn btn-primary" id="backHome">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="footer section">
+    <div class="container footer-inner flex flex-between flex-wrap gap-md flex-center-y">
+      <div>
+        <strong class="logo-brand logo-brand--footer flex flex-center-y gap-sm">
+          <img class="logo-icon" src="assets/images/logo2.png" alt="" width="40" height="40" />
+          <span class="logo-text">EcoWeave</span>
+        </strong>
+        <p class="text-muted footer-tag">Handmade vases and artificial flowers in pink and white tones.</p>
+      </div>
+      <div class="footer-contact">
+        <p><span class="text-muted">Email:</span> hello@ecowave.example</p>
+        <p><span class="text-muted">Phone:</span> (555) 019-2834</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="js/order-config.js"></script>
+  <script src="js/location.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
