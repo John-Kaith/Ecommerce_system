@@ -5,7 +5,7 @@
 (function () {
   "use strict";
 
-  var SHIPPING_FEE = 3.49;
+  var SHIPPING_FEE = 45;
   var CART_STORAGE_KEY = "ecowave_cart";
 
   /** @type {Record<string, { id: string; name: string; price: number; qty: number; image?: string }>} */
