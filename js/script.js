@@ -87,7 +87,22 @@
   }
 
   function formatMoney(n) {
-    return "$" + Number(n).toFixed(2);
+    return "₱" + Number(n).toFixed(2);
+  }
+
+  function parsePriceValue(value) {
+    var normalized = String(value || "").replace(/[^\d.]/g, "");
+    var amount = parseFloat(normalized);
+    return isNaN(amount) ? 0 : amount;
+  }
+
+  function getCardPrice(card) {
+    if (!card) return 0;
+    var priceEl = card.querySelector(".product-price");
+    if (priceEl && priceEl.textContent.trim()) {
+      return parsePriceValue(priceEl.textContent);
+    }
+    return parsePriceValue(card.getAttribute("data-price"));
   }
 
   function getSubtotal() {
@@ -262,7 +277,7 @@
     if (!productModal || !card) return;
     modalProductId = card.getAttribute("data-id") || "";
     var name = card.getAttribute("data-name") || "";
-    var price = parseFloat(card.getAttribute("data-price"));
+    var price = getCardPrice(card);
     var desc = card.getAttribute("data-desc") || "";
     var imageSrc = card.getAttribute("data-image") || "";
 
@@ -340,7 +355,7 @@
     if (!modalProductId) return false;
     var card = document.querySelector('.product-card[data-id="' + modalProductId + '"]');
     var name = card ? card.getAttribute("data-name") : "";
-    var price = card ? parseFloat(card.getAttribute("data-price")) : 0;
+    var price = card ? getCardPrice(card) : 0;
     var image = card ? card.getAttribute("data-image") : "";
     if (!cart[modalProductId]) {
       cart[modalProductId] = { id: modalProductId, name: name, price: price, qty: 0, image: image };
@@ -371,7 +386,7 @@
   function addToCartFromButton(btn) {
     var id = btn.getAttribute("data-id");
     var name = btn.getAttribute("data-name");
-    var price = parseFloat(btn.getAttribute("data-price"));
+    var price = card ? getCardPrice(card) : parsePriceValue(btn.getAttribute("data-price"));
     var card = btn.closest(".product-card");
     var image = card ? card.getAttribute("data-image") : "";
     if (!cart[id]) {
