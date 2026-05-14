@@ -386,8 +386,8 @@
   function addToCartFromButton(btn) {
     var id = btn.getAttribute("data-id");
     var name = btn.getAttribute("data-name");
-    var price = card ? getCardPrice(card) : parsePriceValue(btn.getAttribute("data-price"));
     var card = btn.closest(".product-card");
+    var price = card ? getCardPrice(card) : parsePriceValue(btn.getAttribute("data-price"));
     var image = card ? card.getAttribute("data-image") : "";
     if (!cart[id]) {
       cart[id] = { id: id, name: name, price: price, qty: 0, image: image };
